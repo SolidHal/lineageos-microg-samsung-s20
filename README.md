@@ -81,3 +81,11 @@ Rough steps:
 6) follow long magisk process here, making sure to put disable_vbmeta in the userdata slot : https://topjohnwu.github.io/Magisk/install.html#samsung-system-as-root
 7) you now should effectively have stock firmware + magisk
 8) 
+
+
+## Build lineage
+```
+git checkout https://github.com/lineageos4microg/docker-lineage-cicd.git
+cd docker-lineage-cicd
+docker build --tag solidhal/docker-lineage-cicd .
+```
