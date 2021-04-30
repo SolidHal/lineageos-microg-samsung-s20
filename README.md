@@ -91,3 +91,4 @@ docker build --tag solidhal/docker-lineage-cicd .
 ```
 
 TODO: test recovery.img from lineage
+- test jsec lineage-17.1 kernel branch
