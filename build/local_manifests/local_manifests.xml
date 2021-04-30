@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
-	  <project name="SolidHal/android_device_samsung_x1q" path="device/samsung/x1q" remote="github" revision="lineage-17.1" />
+	  <project name="SolidHal/android_device_samsung_x1q" path="device/samsung/x1q" remote="github" revision="old/lineage-17.1" />
 	  <project name="SolidHal/android_device_samsung_sm8250-common" path="device/samsung/sm8250-common" remote="github" revision="lineage-17.1" />
   <project name="LineageOS/android_device_samsung_slsi_sepolicy" path="device/samsung_slsi/sepolicy" remote="github" />
   <project name="LineageOS/android_hardware_samsung" path="hardware/samsung" remote="github" />
-	<project name="SolidHal/android_kernel_samsung_sm8250" path="kernel/samsung/sm8250" remote="github" revision="lineage-17.1" />
+	<project name="SolidHal/android_kernel_samsung_sm8250" path="kernel/samsung/sm8250" remote="github" revision="lineage-17.1-vendors-2.1-60hz" />
 </manifest>
