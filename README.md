@@ -89,3 +89,5 @@ git checkout https://github.com/lineageos4microg/docker-lineage-cicd.git
 cd docker-lineage-cicd
 docker build --tag solidhal/docker-lineage-cicd .
 ```
+
+TODO: test recovery.img from lineage
