@@ -112,6 +112,12 @@ adb shell settings put secure sysui_rounded_content_padding 22
 
 - finger print enrollment can fail. if this happens just hit back and try again.
 
+
+TODO: 
+- sign the magisk builds so recovery doesn't complain
+- enforce signature checking in recovery, must set PRODUCT_EXTRA_RECOVERY_KEYS like we set PRODUCT_DEFAULT_DEV_CERTIFICATE in the build
+  - https://source.android.com/devices/tech/ota/sign_builds#signatures-sideloading
+
 ## Rough steps:
 keeping these around for now...
 1) unlock bootloader
@@ -123,6 +129,6 @@ keeping these around for now...
 6) boot, install magisk app
 
 # Thanks
-To the member of the XDA fourms that are unlocking the snapdragon s20
-To @jesec who really did all of the work on getting lineage working
-to jimbo77 on xda who had some nice lineage builds for the s20, looking at their source got me pointed in the right direction
+ - To the member of the XDA fourms that are unlocking the snapdragon s20
+ - To @jesec who really did all of the work on getting lineage working
+ - To jimbo77 on xda who had some nice lineage builds for the s20, looking at their source got me pointed in the right direction
