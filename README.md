@@ -1,94 +1,128 @@
-multidisabler is only needed for recovery auto-restore and wsm on s20 as long as magisk is used. 
+# Samsung S20 (snapdragon) LineageOS with MicroG and Magisk
 
-need the wsm or bluetooth? fix for s20 from multidiabler for bluetooth to work. 
+## Requirements
+- adb from the android platform tools package.
+- odin 3.14 - can be found around xda
 
-either modify the script to be configurable for encryption, or build these fixes into the kernel?
+### Key combos
 
-- twrp: https://forum.xda-developers.com/t/recovery-unofficial-twrp-for-galaxy-s20-series-snapdragon.4157901/
+power + volume down + volume up
+  - when device is plugged in to a computer and powered off, this will take you to download mode
+power + volume up
+  - when device is powered off, and these are held during bootup this will take you to recovery
+  - ignore the message about verified boot asking you to press the side button, and keep holding until you get into recovery
 
-lineage-17.1 rom https://forum.xda-developers.com/t/rom-unofficial-s20-s20u-120hz-lineageos-17-1.4188495/
+## Install lineageos with microg
 
-
-Build rom from scratch:
-follow: https://wiki.lineageos.org/devices/sargo/build
-up to breakfast
-
-run:
-```
-source build/envsetup.sh
-breakfast x1q
-```
-wait for that to complete, then modify `.repo/local_manifests/roomservice.xml` to be
-```
-<?xml version="1.0" encoding="UTF-8"?>
-<manifest>
-  <project name="SolidHal/android_device_samsung_x1q" path="device/samsung/x1q" remote="github" revision="lineage-17.1" />
-  <project name="SolidHal/android_device_samsung_sm8250-common" path="device/samsung/sm8250-common" remote="github" revision="lineage-17.1" />
-  <project name="LineageOS/android_device_samsung_slsi_sepolicy" path="device/samsung_slsi/sepolicy" remote="github" />
-  <project name="LineageOS/android_hardware_samsung" path="hardware/samsung" remote="github" />
-	<project name="SolidHal/android_kernel_samsung_sm8250" path="kernel/samsung/sm8250" remote="github" revision="lineage-17.1-vendors-2.1" />
-</manifest>
-```
-
-run:
-```
-repo sync --force-sync
-```
-
-now to get the proprietary files. :TODO: do we actually need any?
-
-```
-cd device/samsung/x1q/
-./extrace-files.sh
-```
-
-magisk:
-https://topjohnwu.github.io/Magisk/install.html#samsung-system-as-root
-- get bluetooth fixes so pairing is remembered
-- fdroid privileged extension
-- aurora store
-
-twrp: 
-https://forum.xda-developers.com/t/recovery-unofficial-twrp-for-galaxy-s20-series-snapdragon.4157901/
-Download & Guide:
-1. Unlock your bootloader and disable AVB from here
-2. Download S20: x1q, S20+: y2q or S20 Ultra z3q.
-3. Reboot to download mode
-4. Put the TWRP TAR for your device with Odin in the AP slot and click start.
-5. Reboot to recovery via recovery key combo.
-6. Disable encryption:
-- Flash multidisabler-samsung-3.x.zip.​
-
-Disable AVB:
-https://forum.xda-developers.com/t/how-to-exynos-snapdragon-root-s20-series-and-upgrade-firmware.4079353/
-
-get disable_vbmeta.tar
-flash to AP using odin
-wipe data
-
-TODO: need sig spoofing in rom
-
-Rough steps:
-1) unlock bootloader
-2) flash oneUI2.1 version, I am using G981U1UEU1ATG2
-2) flash disable_vbmeta.tar
-3) flash twrp, boot twrp
-4) take boot.img from the lineageos.zip and feed it to magisk
-5) wipe data/cache, flash multidisabler, lineage in twrp
-6) boot, install magisk app
+### Prepare your device
+1) unlock your bootloader. There are guides available on XDA.
+2) flash a oneUI2.1 version. This is required for bug free functionality. I am using G981U1UEU1ATG2
+   - When looking on rom sites, you can tell the oneUI version from the 4th to last letter
+   - A ex: `ATG2` is 2.1
+   - B ex: `BS3F` is 2.5
+   - C ex: `CTG7` is 3.0
+   - D ex: `DLG4` is 3.1
+3) flash resources/disable_vbmeta.tar
+   - this is just flashing a blank vbmeta image, which disables vbmeta
+   - load it into the AP slot in odin. upon reboot wipe data
+   
+### Setup recovery
+1) flash lineage_recovery.tar or twrp. You have some options here:
+   a) The most recent tar can be found here: https://github.com/SolidHal/lineageos-microg-samsung-s20/releases
+   b) (if you know what you are doing, or want to learn) you can go to the `Build lineageos with microg` section and come back here after you are done to flash your own recovery.img
+   c) (easiest) or you can flash twrp.
+     - Download link: https://forum.xda-developers.com/t/recovery-unofficial-twrp-for-galaxy-s20-series-snapdragon.4157901/
+     - For lineage 17.1 we want the `Q` release
+     - For lineage 18.1 we want the `R` release
+2) Whichever option you choose for your recovery image, you must first flash twrp so we can run the multidisabler. Unfortunately the lineage recovery doesn't support the multidisabler.
+  - Enter download mode and flash twrp in the ap slot using odin.
+  - as soon as the screen goes black, press and hold power+volume up
+  - DONT LET GO UNTIL YOU GET INTO RECOVERY. If it takes longer than 5 minutes, try again.
+  - once in recovery, wipe data/cache and factory reset. 
+3) Flash multidisabler
+  - NOTE: the usual samsung multidisabler disables data encryption this means that twrp can read/write to your data partition making flashing a little easier *BUT* it also means you user data is completely unencrypted. This is a huge security/privacy risk on a mobile device and should not be done unless extremely necessary.
+  - `multidisabler-samsung-keep-encryption` is a fork of the multidisabler with the step that disables encryption removed.
+  - grab the most recent release from here: https://github.com/SolidHal/multidisabler-samsung-keep-encryption/releases
+  - flash `multidisabler-samsung-*-keep_encrypt.zip` using twrp either by loading it on your sd card, or by using `adb sideload` in the advanced menu and running
+    - adb sideload multidisabler-samsung-*-keep_encrypt.zip on your computer
+4) Flash your final recovery
+  - if you want to keep twrp, skip this step
+  - if you want to use lineage recovery, boot your device in download mode again and flash the lineage recover tar in the `AP` slot
+  - remember to hold volume up + power as soon as the screen goes black, and don't let go until you see the recovery screen
+  
+### Finally flash the rom
+1) Flash the lineage rom
+  - boot into recovery if you aren't already in it
+  - adb sideload the rom like so:
+    - `adb sideload lineage-*.zip`
+  - or the version with magisk pre-installed:
+    - `adb sideload lineage-17.1-magisk-*.zip`
+    - since magisk is pre-installed, the lineage recovery will complain about the signature not being correct.
+      just choose yes and continue when it asks
 
 
-6) follow long magisk process here, making sure to put disable_vbmeta in the userdata slot : https://topjohnwu.github.io/Magisk/install.html#samsung-system-as-root
-7) you now should effectively have stock firmware + magisk
-8) 
+## Build lineageos with microg and magisk
 
-
-## Build lineage
+### Prepare build encironment
+First build the docker image
 ```
 git checkout https://github.com/lineageos4microg/docker-lineage-cicd.git
 cd docker-lineage-cicd
 docker build --tag solidhal/docker-lineage-cicd .
 ```
 
-TODO: test recovery.img from lineage
-- test jsec lineage-17.1 kernel branch
+### Run build
+Now head back to this checkout, and run the build script
+This will take quite some time, and use ~200GB of disk space.
+`build_x1q.sh` can be modified to not include microg, or signature spoofing if you would prefer.
+```
+cd build
+./build_x1q.sh
+```
+### Prepare recovery image
+Once the build is complete, you have to package up your recovery.img in a way odin likes:
+```
+cd zips
+cp *recovery.img recovery.img
+tar -H ustar -c recovery.img > lineage_recovery.tar
+```
+and your rom is the `zips/lineage-*.zip` file
+
+Now go back up and complete the install instructions. You need lineageos running to run the following magisk steps. Come back down here once you are booting.
+
+### Install Magisk
+
+Now that you have your own lineageos image installed, download the magisk apk from https://github.com/topjohnwu/Magisk/releases and install it.
+Unzip the `lineage-*.zip` on your computer, and copy the `boot.img` onto your phone either using and sdcard or `adb push`
+Open the magisk app and install it to your `boot.img` 
+Grab the `magisk_patched-<random_characters>.img` from your Downloads and get it back on your computer
+Rename it to `boot.img`, and copy it into your rom file `lineage-*.zip` overwriting the old `boot.img`
+Reboot into recovery and `adb sideload` the `lineage-*.zip` again.
+Since magisk is now installed on the boot.img, the lineage recovery will complain about the signature not being correct.
+just choose yes and continue when it asks
+Once it is complete, you are done!
+
+
+## Known issues:
+- padding on the status bar for the rounded corners is incorrect.
+This can be fixed at runtime using:
+```
+adb shell settings put secure sysui_rounded_content_padding 22
+```
+
+- finger print enrollment can fail. if this happens just hit back and try again.
+
+## Rough steps:
+keeping these around for now...
+1) unlock bootloader
+2) flash oneUI2.1 version, I am using G981U1UEU1ATG2
+2) flash disable_vbmeta.tar
+3) flash lineage_recovery.tar
+4) take boot.img from the lineageos.zip and feed it to magisk
+5) wipe data/cache, flash multidisabler, lineage in twrp
+6) boot, install magisk app
+
+# Thanks
+To the member of the XDA fourms that are unlocking the snapdragon s20
+To @jesec who really did all of the work on getting lineage working
+to jimbo77 on xda who had some nice lineage builds for the s20, looking at their source got me pointed in the right direction
