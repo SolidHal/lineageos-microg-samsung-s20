@@ -2,7 +2,7 @@
 
 ## Requirements
 - adb from the android platform tools package.
-- odin 3.14 - can be found around xda
+- odin 3.14.4 - can be found around xda
 
 ### Key combos
 
