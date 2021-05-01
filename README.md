@@ -17,6 +17,7 @@ power + volume up
 ### Prepare your device
 1) unlock your bootloader. There are guides available on XDA.
 2) flash a oneUI2.1 version. This is required for bug free functionality. I am using G981U1UEU1ATG2
+  - IMPORTANT: when downgrading/upgrading stock roms make sure you also flash disable_vbmeta.tar in the USERDATA slot!
    - When looking on rom sites, you can tell the oneUI version from the 4th to last letter
    - A ex: `ATG2` is 2.1
    - B ex: `BS3F` is 2.5
