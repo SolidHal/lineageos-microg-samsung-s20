@@ -1,0 +1,43 @@
+diff --git a/services/core/java/com/android/server/pm/permission/PermissionManagerService.java b/services/core/java/com/android/server/pm/permission/PermissionManagerService.java
+index fe0657e1792b..8dda70946eed 100644
+--- a/services/core/java/com/android/server/pm/permission/PermissionManagerService.java
++++ b/services/core/java/com/android/server/pm/permission/PermissionManagerService.java
+@@ -104,6 +104,7 @@
+ import libcore.util.EmptyArray;
+ 
+ import java.util.ArrayList;
++import java.util.Arrays;
+ import java.util.Collection;
+ import java.util.HashMap;
+ import java.util.Iterator;
+@@ -230,6 +231,12 @@
+     final private ArrayList<OnRuntimePermissionStateChangedListener>
+             mRuntimePermissionStateChangedListeners = new ArrayList<>();
+ 
++
++    // Define allowed permissions for Android Auto
++    private ArrayList<String> androidAutoPerms = new ArrayList<String>(
++                                                                       Arrays.asList("android.permission.MODIFY_AUDIO_ROUTING", "android.permission.REAL_GET_TASKS", "android.permission.LOCAL_MAC_ADDRESS", "android.permission.MANAGE_USB", "android.permission.MANAGE_USERS"));
++    private static final String GOOGLEAUTOHASH = "FDB00C43DBDE8B51CB312AA81D3B5FA17713ADB94B28F598D77F8EB89DACEEDF";
++
+     PermissionManagerService(Context context,
+             @NonNull Object externalLock) {
+         mContext = context;
+@@ -312,6 +319,17 @@ private int checkPermission(String permName, String pkgName, int callingUid, int
+             final PackageSetting ps = (PackageSetting) pkg.mExtras;
+             final boolean instantApp = ps.getInstantApp(userId);
+             final PermissionsState permissionsState = ps.getPermissionsState();
++
++            if (pkg.getPackageName() == "com.google.android.projection.gearhead") {
++                //TODO: if this works, implement getSigningDetails. might be pkg.mSigningDetails
++                // String hash = pkg.getSigningDetails().getSha256Certificate();
++                // if(hash.equals(GOOGLEAUTOHASH)) {
++                    if (androidAutoPerms.contains(permissionName)) {
++                        return PackageManager.PERMISSION_GRANTED;
++                    }
++                // }
++            }
++
+             if (permissionsState.hasPermission(permName, userId)) {
+                 if (instantApp) {
+                     synchronized (mLock) {
