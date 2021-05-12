@@ -15,7 +15,7 @@ docker run \
        -v "$PWD/logs:/srv/logs" \
        -v "$PWD/ccache:/srv/ccache" \
        -v "$PWD/local_manifests:/srv/local_manifests" \
-       -v "$PWD/local_manifests:/srv/userscripts" \
+       -v "$PWD/userscripts:/srv/userscripts" \
        -v "$HOME/.android-certs:/srv/keys" \
        solidhal/docker-lineage-cicd
 
