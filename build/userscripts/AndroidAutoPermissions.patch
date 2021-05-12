@@ -1,7 +1,7 @@
-diff --git a/services/core/java/com/android/server/pm/permission/PermissionManagerService.java b/services/core/java/com/android/server/pm/permission/PermissionManagerService.java
+diff --git a/frameworks/base/services/core/java/com/android/server/pm/permission/PermissionManagerService.java b/frameworks/base/services/core/java/com/android/server/pm/permission/PermissionManagerService.java
 index fe0657e1792b..8dda70946eed 100644
---- a/services/core/java/com/android/server/pm/permission/PermissionManagerService.java
-+++ b/services/core/java/com/android/server/pm/permission/PermissionManagerService.java
+--- a/frameworks/base/services/core/java/com/android/server/pm/permission/PermissionManagerService.java
++++ b/frameworks/base/services/core/java/com/android/server/pm/permission/PermissionManagerService.java
 @@ -104,6 +104,7 @@
  import libcore.util.EmptyArray;
  
