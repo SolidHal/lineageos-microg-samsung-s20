@@ -1,0 +1,64 @@
+    declared permissions:
+      androidx.car.app.ACCESS_SURFACE: prot=normal, INSTALLED
+      androidx.car.app.NAVIGATION_TEMPLATES: prot=normal, INSTALLED
+      androidx.car.app.MAP_TEMPLATES: prot=normal, INSTALLED
+requested permissions:
+      android.permission.READ_PHONE_STATE
+      android.permission.READ_PRIVILEGED_PHONE_STATE
+      android.permission.CALL_PHONE
+      android.permission.READ_CALL_LOG: restricted=true
+      android.permission.READ_CONTACTS
+      android.permission.ACCESS_FINE_LOCATION
+      com.google.android.gms.permission.CAR_SPEED
+      android.permission.RECEIVE_SMS: restricted=true
+      android.permission.SEND_SMS: restricted=true
+      android.permission.RECORD_AUDIO
+      android.permission.READ_CALENDAR
+      android.permission.WAKE_LOCK
+      android.permission.INTERNET
+      android.permission.ACCESS_NETWORK_STATE
+      android.permission.ACCESS_NOTIFICATION_POLICY
+      android.permission.ACCESS_WIFI_STATE
+      android.permission.CHANGE_NETWORK_STATE
+      android.permission.QUERY_ALL_PACKAGES
+      com.google.android.providers.gsf.permission.READ_GSERVICES
+      android.permission.SYSTEM_ALERT_WINDOW
+      android.permission.BLUETOOTH
+      android.permission.BLUETOOTH_ADMIN
+      android.permission.CHANGE_WIFI_STATE
+      android.permission.FOREGROUND_SERVICE
+      android.permission.RECEIVE_BOOT_COMPLETED
+      android.permission.VIBRATE
+      com.google.android.finsky.permission.GEARHEAD_SERVICE
+      android.permission.WRITE_SETTINGS
+      android.permission.BLUETOOTH_PRIVILEGED
+      android.permission.CALL_PRIVILEGED
+      android.permission.COMPANION_APPROVE_WIFI_CONNECTIONS
+      android.permission.LOCATION_HARDWARE
+      android.permission.CONTROL_INCALL_EXPERIENCE
+      android.permission.DUMP
+      android.permission.ENTER_CAR_MODE_PRIORITIZED
+      android.permission.LOCAL_MAC_ADDRESS
+      android.permission.MANAGE_USB
+      android.permission.MODIFY_AUDIO_ROUTING
+      android.permission.MODIFY_DAY_NIGHT_MODE
+      android.permission.START_ACTIVITIES_FROM_BACKGROUND
+      android.permission.TOGGLE_AUTOMOTIVE_PROJECTION
+      android.permission.CHANGE_COMPONENT_ENABLED_STATE
+      android.permission.INTERACT_ACROSS_PROFILES
+      android.permission.UPDATE_APP_OPS_STATS
+      android.permission.ACCESS_COARSE_LOCATION
+
+    install permissions:
+      android.permission.ACCESS_NOTIFICATION_POLICY: granted=true
+      android.permission.CHANGE_NETWORK_STATE: granted=true
+      android.permission.FOREGROUND_SERVICE: granted=true
+      android.permission.RECEIVE_BOOT_COMPLETED: granted=true
+      android.permission.BLUETOOTH: granted=true
+      android.permission.INTERNET: granted=true
+      android.permission.BLUETOOTH_ADMIN: granted=true
+      android.permission.CHANGE_WIFI_STATE: granted=true
+      android.permission.ACCESS_NETWORK_STATE: granted=true
+      android.permission.VIBRATE: granted=true
+      android.permission.ACCESS_WIFI_STATE: granted=true
+      android.permission.WAKE_LOCK: granted=true

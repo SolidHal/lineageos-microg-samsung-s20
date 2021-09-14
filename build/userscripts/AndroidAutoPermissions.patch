@@ -23,18 +23,19 @@ index fe0657e1792b..8dda70946eed 100644
      PermissionManagerService(Context context,
              @NonNull Object externalLock) {
          mContext = context;
-@@ -312,6 +319,17 @@ private int checkPermission(String permName, String pkgName, int callingUid, int
+@@ -312,6 +319,18 @@ private int checkPermission(String permName, String pkgName, int callingUid, int
              final PackageSetting ps = (PackageSetting) pkg.mExtras;
              final boolean instantApp = ps.getInstantApp(userId);
              final PermissionsState permissionsState = ps.getPermissionsState();
 +
-+            if (pkg.getPackageName() == "com.google.android.projection.gearhead") {
++            if (pkgName == "com.google.android.projection.gearhead") {
++            Slog.w(TAG, "Granting permission to Android Auto gearhead");
 +                //TODO: if this works, implement getSigningDetails. might be pkg.mSigningDetails
 +                // String hash = pkg.getSigningDetails().getSha256Certificate();
 +                // if(hash.equals(GOOGLEAUTOHASH)) {
-+                    if (androidAutoPerms.contains(permissionName)) {
++                //    if (androidAutoPerms.contains(permName)) {
 +                        return PackageManager.PERMISSION_GRANTED;
-+                    }
++                //    }
 +                // }
 +            }
 +

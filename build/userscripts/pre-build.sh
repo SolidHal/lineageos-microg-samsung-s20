@@ -2,7 +2,8 @@
 
 
 ls -lah /root/userscripts/
-patch -p0 < /root/userscripts/AndroidAutoPermissions.patch || echo Patch failed!
+patch -p1 < /root/userscripts/AndroidAutoPermissions.patch || echo AA Patch failed!
+patch -p1 < /root/userscripts/BraodcastPermissionPatch.patch || echo Broadcast Patch failed!
 
-echo Android Auto Permissions Patched!
+echo Android Auto Permissions patched!
 

@@ -17,7 +17,7 @@ power + volume up
 ### Prepare your device
 1) unlock your bootloader. There are guides available on XDA.
 2) flash a oneUI2.1 version. This is required for bug free functionality. I am using G981U1UEU1ATG2
-  - IMPORTANT: when downgrading/upgrading stock roms make sure you also flash disable_vbmeta.tar in the USERDATA slot!
+  - IMPORTANT: when downgrading/upgrading stock roms make sure you also flash disable_vbmeta.tar in the USERDATA slot instead of the AP slot!
    - When looking on rom sites, you can tell the oneUI version from the 4th to last letter
    - A ex: `ATG2` is 2.1
    - B ex: `BS3F` is 2.5
@@ -25,7 +25,7 @@ power + volume up
    - D ex: `DLG4` is 3.1
 3) flash resources/disable_vbmeta.tar
    - this is just flashing a blank vbmeta image, which disables vbmeta
-   - load it into the AP slot in odin. upon reboot wipe data
+   - when flashing `disable_vbmets.tar` alone, load it into the AP slot in odin. upon reboot wipe data
    
 ### Setup recovery
 1) flash lineage_recovery.tar or twrp. You have some options here:
@@ -111,13 +111,43 @@ This can be fixed at runtime using:
 adb shell settings put secure sysui_rounded_content_padding 22
 ```
 
-- finger print enrollment can fail. if this happens just hit back and try again.
+- finger print enrollment is touchy
+Method that always succeeds:
+1) press next
+2) quickly tap fingerprint sensor
+3) you should now see the `Lift, then touch again` screen
+4) wait 1 second
+5) register fingerprint like usual
 
 
 TODO: 
 - sign the magisk builds so recovery doesn't complain
 - enforce signature checking in recovery, must set PRODUCT_EXTRA_RECOVERY_KEYS like we set PRODUCT_DEFAULT_DEV_CERTIFICATE in the build
   - https://source.android.com/devices/tech/ota/sign_builds#signatures-sideloading
+
+## Debug booting
+if your device won't boot, and you can't get adb to work in the eng builds try
+looking at the logs in:
+```
+/proc/last_kmsg
+/sys/fs/pstore/
+```
+
+## debug selinux and sepolicy
+this post is a great intro: https://lineageos.org/engineering/HowTo-SELinux/
+
+`avc:` denials can be found in logcat and dmesg
+
+you can pull the running policy by doing:
+```
+adb shell cat /sys/fs/selinux/policy > policy
+```
+
+and get some suggestions for policies to add from:
+```
+audit2allow -i dmesg.txt -p policy
+```
+
 
 ## Rough steps:
 keeping these around for now...
@@ -131,5 +161,5 @@ keeping these around for now...
 
 # Thanks
  - To the member of the XDA fourms that are unlocking the snapdragon s20
- - To @jesec who really did all of the work on getting lineage working
+ - To @jesec who got the s20 supported for lineage 17.1
  - To jimbo77 on xda who had some nice lineage builds for the s20, looking at their source got me pointed in the right direction

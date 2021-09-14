@@ -9,7 +9,7 @@ docker run \
        -e "CLEAN_AFTER_BUILD=false" \
        -e "SIGN_BUILDS=true" \
        -e "SIGNATURE_SPOOFING=yes" \
-       -e "CUSTOM_PACKAGES=GmsCore GsfProxy FakeStore FDroid FDroidPrivilegedExtension lawnchair" \
+       -e "CUSTOM_PACKAGES=GmsCore GsfProxy FakeStore FDroid FDroidPrivilegedExtension AndroidAuto" \
        -v "$PWD/src:/srv/src" \
        -v "$PWD/zips:/srv/zips" \
        -v "$PWD/logs:/srv/logs" \
