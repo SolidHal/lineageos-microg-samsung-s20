@@ -1,5 +1,8 @@
 # Samsung S20 (snapdragon) LineageOS with MicroG and Magisk
 
+TODO notes:
+https://github.com/LineageOS/android_kernel_samsung_sm8250/commit/b9637ea604d245de048c86ee056843805beade62
+
 ## Requirements
 - adb from the android platform tools package.
 - odin 3.14.4 - can be found around xda
